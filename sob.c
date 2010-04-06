@@ -96,7 +96,7 @@ static void dump_swf_tags(swf_t* swf, const char* prefix)
 		sprintf(fname, "%s-%04i-%03i.bin", prefix, idx, tag->type);
 		f = fopen(fname, "wb");
 		if (f) {
-			if (!quiet) printf("sob: dumping #%i tag with code %i, data %i bytes\n", idx, tag->type, tag->length);
+			if (!quiet) printf("sob: dumping #%i tag with code %i, data %i bytes\n", idx, tag->type, (int)tag->length);
 			fwrite(tag->data, 1, tag->length, f);
 			fclose(f);
 		} else fprintf(stderr, "sob: failed to create '%s'\n", fname);
@@ -276,7 +276,7 @@ static void parse_arguments(int argn, char** argv)
 					swf->compressed?"compressed":"uncompressed",
 					swf->filename,
 					swf->version,
-					swf->body_length);
+					(int)swf->body_length);
 				printf("sob: movie area=%i,%i -> %i,%i ",
 					(int)(swf->rect.xmin/20), (int)(swf->rect.ymin/20),
 					(int)(swf->rect.xmax/20), (int)(swf->rect.ymax/20));
@@ -309,10 +309,10 @@ static void parse_arguments(int argn, char** argv)
 				if (!swf_write(swf, swffile)) {
 					fprintf(stderr, "sob: failed to write swf file '%s'\n", swffile);
 				} else {
-					if (!quiet) printf("sob: wrote swf file '%s' with body length %i\n", swffile, swf->body_length);
+					if (!quiet) printf("sob: wrote swf file '%s' with body length %i\n", swffile, (int)swf->body_length);
 				}
 			} else {
-				if (!quiet) printf("sob: pretending i wrote swf file '%s' with body length %i\n", swffile, swf->body_length);
+				if (!quiet) printf("sob: pretending i wrote swf file '%s' with body length %i\n", swffile, (int)swf->body_length);
 			}
 				
 			

@@ -83,7 +83,7 @@ void ignore_remove(const char* name)
 int ignore_check(const char* name)
 {
 	int i;
-	if (!name[0] || !name[1]) return 0;
+	if (!name[0] || !name[1]) return 1;
 	for (i=0; i<namec; i++) {
 		char* star = strchr(names[i], '*');
 		if (star) {

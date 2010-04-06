@@ -168,6 +168,14 @@ static void load_default_symbols(const char* argv0)
 		free(entry);
 		free(tmpfn);
 		free(exefile);
+		/* Check /usr/local/lib/sob and /usr/lib/sob under non-Win32 systems */
+		#ifndef WIN32
+		if (file_exists("/usr/local/share/sob/symbols.txt")) {
+			xpath = strclone("/usr/local/share/sob");
+		} else if (file_exists("/usr/share/sob/symbols.txt")) {
+			xpath = strclone("/usr/share/sob");
+		}
+		#endif
 		/* if no file in the path was found, use the current directory */
 		if (xpath == NULL) xpath = strclone(".");
 	}

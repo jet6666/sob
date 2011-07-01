@@ -77,7 +77,7 @@ static char* read_string_info(context_t* ctx)
 static void add_name(context_t* ctx, long name)
 {
 	size_t i;
-	if (name == 0 || name >= ctx->str_table_size || !ctx->str_table[name][0]) return;
+	if (name == 0 || name >= (long)ctx->str_table_size || !ctx->str_table[name][0]) return;
 	for (i=0; i<ctx->name_table_size; i++) {
 		if (name == ctx->name_table[i]) return;
 	}
@@ -188,7 +188,7 @@ static void rebuild_string_table(context_t* ctx)
 	size_t after_table_data_size;
 	unsigned char* before_table_data;
 	unsigned char* after_table_data;
-	int i;
+	size_t i;
 	/* build the table data */
 	for (i=1; i<ctx->str_table_size; i++) {
 		size_t size = strlen(ctx->str_table[i]);
@@ -234,7 +234,7 @@ static void process(context_t* ctx)
 		ctx->error = 1;
 		return;
 	}
-	if (ver_minor); /* to avoid getting an unused variable name */
+	if (ver_minor) {} /* to avoid getting an unused variable name */
 	parse_constant_pool(ctx);
 	rebuild_names(ctx);
 	rebuild_string_table(ctx);

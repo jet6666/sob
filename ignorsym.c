@@ -38,7 +38,7 @@ void ignore_init(void)
 void ignore_shutdown(void)
 {
 	if (names) {
-		int i;
+		size_t i;
 		for (i=0; i<namec; i++) free(names[i]);
 		free(names);
 	}
@@ -70,9 +70,9 @@ void ignore_add(const char* name)
 
 void ignore_remove(const char* name)
 {
-	int i;
+	size_t i;
 	for (i=0; i<namec; i++) if (!strcmp(name, names[i])) {
-		int j;
+		size_t j;
 		free(names[i]);
 		for (j=i; j<namec-1; j++) names[j] = names[j + 1];
 		namec--;
@@ -82,7 +82,7 @@ void ignore_remove(const char* name)
 
 int ignore_check(const char* name)
 {
-	int i;
+	size_t i;
 	if (!name[0] || !name[1]) return 1;
 	for (i=0; i<namec; i++) {
 		char* star = strchr(names[i], '*');
